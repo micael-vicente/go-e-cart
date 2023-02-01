@@ -12,11 +12,7 @@ type CartService struct {
 // CreateCart creates a new cart
 func (cs *CartService) CreateCart(customerId string) (*models.Cart, error) {
 	var cart = models.Cart{CustomerId: customerId}
-	if err := cs.Repo.Create(&cart); err != nil {
-		return nil, err
-	} else {
-		return &cart, nil
-	}
+	return &cart, cs.Repo.Create(&cart)
 }
 
 // UpdateCart updates a cart
@@ -24,7 +20,6 @@ func (cs *CartService) UpdateCart(id int, items []models.CartItem) (*models.Cart
 	if cart, err := cs.Repo.Get(id); err != nil {
 		return nil, err
 	} else {
-
 		cart.CartItems = []models.CartItem{}
 		cart.CartItems = append(cart.CartItems, items...)
 		return cart, cs.Repo.Update(cart)

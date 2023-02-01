@@ -32,25 +32,15 @@ func (r *CartRepositoryImpl) GetAll(customerId string) ([]models.Cart, error) {
 
 // Create saves a cart
 func (r *CartRepositoryImpl) Create(cart *models.Cart) error {
-	if err := r.Db.Create(cart).Error; err != nil {
-		return err
-	}
-	return nil
+	return r.Db.Create(cart).Error
 }
 
 // Update updates a cart
 func (r *CartRepositoryImpl) Update(cart *models.Cart) error {
-	err := r.Db.Model(&cart).Association("CartItems").Replace(cart.CartItems)
-	if err != nil {
-		return err
-	}
-	return nil
+	return r.Db.Model(&cart).Association("CartItems").Replace(cart.CartItems)
 }
 
 // Delete deletes a cart
 func (r *CartRepositoryImpl) Delete(id int) error {
-	if err := r.Db.Where("id = ?", id).Delete(&models.Cart{}).Error; err != nil {
-		return err
-	}
-	return nil
+	return r.Db.Unscoped().Select(clause.Associations).Delete(&models.Cart{ID: id}).Error
 }
