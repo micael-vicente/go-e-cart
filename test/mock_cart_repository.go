@@ -1,7 +1,7 @@
 package services
 
 import (
-	"cart/pkg/models"
+	"cart/internal/pkg/models"
 	"log"
 )
 

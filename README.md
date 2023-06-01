@@ -10,14 +10,14 @@ The service is a REST API that allows you to create, list, update and delete car
 
 ## Running ▶️
 
-### Start the service
+### Starting the service
 
 ```bash
 docker-compose -f docker/docker-compose.yml up
 ```
 
 ```bash
-go run main.go
+go run cmd/cart/main.go
 ```
 
 ### Stopping the service

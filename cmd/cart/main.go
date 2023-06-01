@@ -2,10 +2,10 @@ package main
 
 import (
 	"cart/config"
-	"cart/pkg/controllers"
-	"cart/pkg/db"
-	"cart/pkg/models"
-	"cart/pkg/services"
+	"cart/internal/pkg/controllers"
+	"cart/internal/pkg/db"
+	"cart/internal/pkg/models"
+	"cart/internal/pkg/services"
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"

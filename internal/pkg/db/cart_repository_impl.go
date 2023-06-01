@@ -1,7 +1,7 @@
 package db
 
 import (
-	"cart/pkg/models"
+	"cart/internal/pkg/models"
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
 	"log"

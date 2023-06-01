@@ -1,6 +1,8 @@
 package db
 
-import "cart/pkg/models"
+import (
+	"cart/internal/pkg/models"
+)
 
 type CartRepository interface {
 	Get(id int) (*models.Cart, error)

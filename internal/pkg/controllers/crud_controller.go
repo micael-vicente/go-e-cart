@@ -1,8 +1,8 @@
 package controllers
 
 import (
-	"cart/pkg/models"
-	"cart/pkg/services"
+	"cart/internal/pkg/models"
+	"cart/internal/pkg/services"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"
@@ -55,7 +55,7 @@ func (cc *CrudController) DeleteCart(c *gin.Context) {
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"message": "Cart deleted"})
+		c.JSON(http.StatusNoContent, gin.H{"message": "Cart deleted"})
 	}
 }
 

@@ -1,8 +1,9 @@
 package services
 
 import (
-	"cart/pkg/db"
-	"cart/pkg/models"
+	"cart/internal/pkg/db"
+	"cart/internal/pkg/models"
+	"errors"
 )
 
 type CartService struct {
@@ -18,8 +19,11 @@ func (cs *CartService) CreateCart(customerId string) (*models.Cart, error) {
 // UpdateCart updates a cart
 func (cs *CartService) UpdateCart(id int, items []models.CartItem) (*models.Cart, error) {
 	if cart, err := cs.Repo.Get(id); err != nil {
-		return nil, err
+		return nil, errors.New("cart not found")
 	} else {
+		if err := cs.validateItems(items); err != nil {
+			return nil, err
+		}
 		cart.CartItems = []models.CartItem{}
 		cart.CartItems = append(cart.CartItems, items...)
 		return cart, cs.Repo.Update(cart)
@@ -28,7 +32,11 @@ func (cs *CartService) UpdateCart(id int, items []models.CartItem) (*models.Cart
 
 // GetCart returns a cart by id
 func (cs *CartService) GetCart(id int) (*models.Cart, error) {
-	return cs.Repo.Get(id)
+	if cart, err := cs.Repo.Get(id); err != nil {
+		return nil, errors.New("cart not found")
+	} else {
+		return cart, nil
+	}
 }
 
 // ListByCustomer returns all carts for a customer
@@ -39,4 +47,18 @@ func (cs *CartService) ListByCustomer(customerId string) ([]models.Cart, error) 
 // DeleteCart deletes a cart
 func (cs *CartService) DeleteCart(id int) error {
 	return cs.Repo.Delete(id)
+}
+
+// validateItems validates the items in a cart
+func (cs *CartService) validateItems(items []models.CartItem) error {
+	for _, item := range items {
+		if item.Quantity <= 0 {
+			return errors.New("invalid quantity for item")
+		}
+
+		if len(item.Sku) <= 0 {
+			return errors.New("sku cannot be empty or null")
+		}
+	}
+	return nil
 }

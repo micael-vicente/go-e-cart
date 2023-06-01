@@ -1,8 +1,8 @@
 package services
 
 import (
-	"cart/pkg/models"
-	"cart/pkg/services"
+	"cart/internal/pkg/models"
+	"cart/internal/pkg/services"
 	"github.com/stretchr/testify/assert"
 	"testing"
 )
@@ -25,6 +25,26 @@ func TestUpdateCart(t *testing.T) {
 	cart, err := service.UpdateCart(1, []models.CartItem{{Sku: "1", Quantity: 1}})
 	assert.Nil(t, err)
 	assert.Equal(t, expected.CartItems, cart.CartItems)
+}
+
+func TestUpdateCartWithInvalidSku(t *testing.T) {
+	expected := &models.Cart{CustomerId: "1", CartItems: []models.CartItem{{Sku: "1", Quantity: 1}}}
+	repo := &MockCartRepository{Cart: expected}
+
+	service := &services.CartService{Repo: repo}
+	cart, err := service.UpdateCart(1, []models.CartItem{{Sku: "", Quantity: 1}})
+	assert.Nil(t, cart)
+	assert.Equal(t, "sku cannot be empty or null", err.Error())
+}
+
+func TestUpdateCartWithInvalidQuantity(t *testing.T) {
+	expected := &models.Cart{CustomerId: "1", CartItems: []models.CartItem{{Sku: "1", Quantity: 1}}}
+	repo := &MockCartRepository{Cart: expected}
+
+	service := &services.CartService{Repo: repo}
+	cart, err := service.UpdateCart(1, []models.CartItem{{Sku: "1", Quantity: 0}})
+	assert.Nil(t, cart)
+	assert.Equal(t, "invalid quantity for item", err.Error())
 }
 
 func TestGetCart(t *testing.T) {
