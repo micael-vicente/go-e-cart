@@ -2,9 +2,10 @@ package db
 
 import (
 	"cart/internal/pkg/models"
+	"log"
+
 	"gorm.io/gorm"
 	"gorm.io/gorm/clause"
-	"log"
 )
 
 type CartRepositoryImpl struct {

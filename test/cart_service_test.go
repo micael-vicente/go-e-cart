@@ -3,8 +3,9 @@ package services
 import (
 	"cart/internal/pkg/models"
 	"cart/internal/pkg/services"
-	"github.com/stretchr/testify/assert"
 	"testing"
+
+	"github.com/stretchr/testify/assert"
 )
 
 func TestCreateCart(t *testing.T) {
