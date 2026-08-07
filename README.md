@@ -4,7 +4,7 @@ A very simple cart service written in Go.
 The service is a REST API that allows you to create, list, update and delete carts and items.
 
 ## Requirements 📖
-- Go 1.23.4 
+- Go 1.25.0 
 - Docker
 - Docker Compose
 
@@ -33,25 +33,25 @@ docker-compose -f docker/docker-compose.yml down
 ### Create a cart
 
 ```bash
-curl -X POST http://localhost:8081/carts?customerId=CUST1
+curl -X POST http://localhost:8082/carts?customerId=CUST1
 ```
 
 ### List all carts
 
 ```bash
-curl -X GET http://localhost:8081/carts?customerId=CUST1
+curl -X GET http://localhost:8082/carts?customerId=CUST1
 ```
 
 ### Get a cart by ID
 
 ```bash
-curl -X GET http://localhost:8081/carts/1
+curl -X GET http://localhost:8082/carts/1
 ```
 
 ### Update the items of a cart
 
 ```bash
-curl -X PUT http://localhost:8081/carts/1 \
+curl -X PUT http://localhost:8082/carts/1 \
 -d '[{"sku": "SKU1", "quantity": 2}, {"sku": "SKU2", "quantity": 1}]' \
 -H "Content-Type: application/json"
 ```
@@ -59,7 +59,7 @@ curl -X PUT http://localhost:8081/carts/1 \
 ### Delete a cart
 
 ```bash
-curl -X DELETE http://localhost:8081/carts/1
+curl -X DELETE http://localhost:8082/carts/1
 ```
 
 
